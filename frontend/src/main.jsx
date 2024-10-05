@@ -3,16 +3,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { StrictMode } from "react";
 import "./global.css";
 import App from "./app/app";
-import Contact from "./contact/contact";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
   },
   {
-    path: "/contact",
-    element: <Contact />,
+    path: "/Login",
+    element: <contact />,
   },
 ]);
 
