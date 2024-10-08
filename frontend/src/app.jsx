@@ -1,5 +1,5 @@
 import Login from "./components/login";
-import Start from "./components/Start";
+import Start from "./components/Start_page";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function app() {
@@ -9,9 +9,7 @@ function app() {
         <Route path="/" element={<Start />}>
           {" "}
         </Route>
-        <Route path="/adminlogin" element={<Login />}>
-          {" "}
-        </Route>
+        <Route path="/adminlogin" element={<Login />}></Route>
       </Routes>
     </BrowserRouter>
   );
