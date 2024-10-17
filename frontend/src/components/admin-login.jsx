@@ -31,7 +31,7 @@ const AdminLogin = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="p-6 rounded-lg w-1/4 bg-white shadow-md">
-        <h1 className="text-2xl font-bold mb-6">Login Page</h1>
+        <h1 className="text-2xl font-bold mb-6  ">Login Page</h1>
         {/* <form onSubmit={handleSubmit}> */}
         <form>
           <div className="mb-4">

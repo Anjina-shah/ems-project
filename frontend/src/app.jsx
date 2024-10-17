@@ -1,6 +1,6 @@
 import Start from "./components/start";
 import Employeelogin from "./components/employee-login";
-import home from "./components/home";
+import Home from "./components/home";
 import AdminLogin from "./components/admin-login";
 import Dashboard from "./components/dashboard";
 // import profile from "./components/profile";
@@ -14,6 +14,7 @@ function App() {
         <Route path="/admin-login" element={<AdminLogin />}></Route>
         <Route path="/employee-login" element={<Employeelogin />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/home" element={<Home />}></Route>
         {/* <Route path="/employee_login" element={<EmployeeLogin />}></Route>
         <Route path="/employee_detail/:id" element={<EmployeeDetail />}></Route> */}
         {/* <Route
