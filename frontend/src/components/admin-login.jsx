@@ -1,83 +1,123 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-const AdminLogin = () => {
-  const [values, setValues] = useState({
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+
+function AdminLogin() {
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  axios.defaults.withCredentials = true;
+  console.log(user);
+  function updateEmail(event) {
+    const currentEmail = event.target.value;
+    setUser((currentValue) => ({ ...currentValue, email: currentEmail }));
+  }
+  function updatePassword(event) {
+    const currentPassword = event.target.value;
+    setUser((currentValue) => ({
+      ...currentValue,
+      password: currentPassword,
+    }));
+  }
+  console.log(JSON.stringify(user));
+  //localhost:3000/auth/adminlogin
+  function loginUser() {
+    fetch("http://localhost:3000/auth/adminlogin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   axios
-  //     .post(
-  //       `${import.meta.env.VITE_BACKEND_SERVER_URL}/auth/adminlogin`,
-  //       values
-  //     )
-  //     .then((result) => {
-  //       if (result.data.loginStatus) {
-  //         localStorage.setItem("valid", true);
-  //         navigate("/dashboard");
-  //       } else {
-  //         setError(result.data.Error);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+      .then((data) => {
+        // localStorage.setItem("abcd", 1234);
+        if (!data.loginStatus) {
+          throw new Error("An error occurred while fetching the data");
+        }
 
+        localStorage.setItem("loginStatus", true);
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        console.error("Error during login:", error);
+      });
+  }
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("loginStatus");
+    if (isLoggedIn) {
+      navigate("/dashboard");
+    }
+  }, []);
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="p-6 rounded-lg w-1/4 bg-white shadow-md">
-        <h1 className="text-2xl font-bold mb-6  ">Login Page</h1>
-        {/* <form onSubmit={handleSubmit}> */}
-        <form>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700">
-              <strong>Email:</strong>
-            </label>
-            <input
-              type="email"
-              name="email"
-              autoComplete="off"
-              placeholder="Enter Email"
-              onChange={(e) => setValues({ ...values, email: e.target.value })}
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700">
-              <strong>Password:</strong>
-            </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter Password"
-              onChange={(e) =>
-                setValues({ ...values, password: e.target.value })
-              }
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <button
-            className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 mb-4"
-            onClick={() => {
-              navigate("/dashboard");
-            }}
+    <div>
+      <form className="max-w-sm mx-auto">
+        <div className="mb-5">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Log in
-          </button>
-          <div className="flex items-center">
-            <input type="checkbox" name="tick" id="tick" className="mr-2" />
-            <label htmlFor="tick" className="text-gray-700">
-              You agree with terms & conditions
-            </label>
+            Your email
+          </label>
+          <input
+            onChange={updateEmail}
+            type="email"
+            id="email"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="name@flowbite.com"
+            // required
+          />
+        </div>
+        <div className="mb-5">
+          <label
+            htmlFor="password"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Your password
+          </label>
+          <input
+            onChange={updatePassword}
+            type="password"
+            id="password"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            // required
+          />
+        </div>
+        <div className="flex items-start mb-5">
+          <div className="flex items-center h-5">
+            <input
+              id="remember"
+              type="checkbox"
+              value=""
+              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+              // required
+            />
           </div>
-        </form>
+          <label
+            htmlFor="remember"
+            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >
+            Remember me
+          </label>
+        </div>
+        <button
+          onClick={loginUser}
+          // type="submit"
+          type="button"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Login
+        </button>
+      </form>
+      <div>
+        {/* <div>Back to Home </div> */}
+        {/* <input type = "button" value = "Back to Home" onClick = {() => { */}
+        <Link to="/">Back to Login</Link>
       </div>
     </div>
   );
-};
+}
+
 export default AdminLogin;
