@@ -17,16 +17,16 @@ jobs:
 
       - name: Build Frontend Docker Image
         run: |
-          docker build --build-arg VITE_BACKEND_SERVER_URL=${{ secrets.VITE_BACKEND_SERVER_URL }} -t 097671/erp-frontend:latest ./frontend
+          docker build --build-arg VITE_BACKEND_SERVER_URL=${{ secrets.VITE_BACKEND_SERVER_URL }} -t anjinashah/erp-frontend:latest ./frontend
 
       - name: Build Backend Docker Image
-        run: docker build -t 097671/erp-backend:latest ./backend
+        run: docker build -t anjinashah/erp-backend:latest ./backend
 
       - name: Push Frontend Image to Docker Hub
-        run: docker push 097671/erp-frontend:latest
+        run: docker push anjinashah/erp-frontend:latest
 
       - name: Push Backend Image to Docker Hub
-        run: docker push 097671/erp-backend:latest
+        run: docker push anjinashah/erp-backend:latest
 
   deploy:
     needs: build
@@ -39,7 +39,7 @@ jobs:
         run: |
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
           echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}"anjinashah >> .env
           echo "DB_USER=${{ secrets.DB_USER }}" >> .env
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
           echo "CORS_URL=${{ secrets.CORS_URL }}" >> .env
@@ -47,10 +47,10 @@ jobs:
           echo "VITE_BACKEND_SERVER_URL=${{ secrets.VITE_BACKEND_SERVER_URL }}" >> .env
 
       - name: Pull Frontend Image from Docker Hub
-        run: docker pull 097671/erp-frontend:latest
+        run: docker pull /erp-frontend:latest
 
       - name: Pull Backend Image from Docker Hub
-        run: docker pull 097671/erp-backend:latest
+        run: docker pull anjinashah/erp-backend:latest
 
       - name: Stop and Remove Existing Containers
         run: docker-compose down || true
