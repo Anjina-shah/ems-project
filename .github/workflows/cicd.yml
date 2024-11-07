@@ -47,7 +47,7 @@ jobs:
           echo "VITE_BACKEND_SERVER_URL=${{ secrets.VITE_BACKEND_SERVER_URL }}" >> .env
 
       - name: Pull Frontend Image from Docker Hub
-        run: docker pull erp-frontend:latest
+        run: docker pull anjinashah/erp-frontend:latest
 
       - name: Pull Backend Image from Docker Hub
         run: docker pull anjinashah/erp-backend:latest
