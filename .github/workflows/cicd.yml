@@ -3,7 +3,7 @@ name: Deploy Fullstack Application
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
