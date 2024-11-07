@@ -2,18 +2,18 @@ import { StrictMode } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM, { createRoot } from "react-dom/client";
 import React from "react";
-import Login from "../Components/login";
+import Login from "../components/login";
 import AdminLogin from "../components/employee-detail";
 import Dashboard from "../components/employee-edit";
 import EmployeeDetail from "../components/employee-detail";
 import EmployeeEdit from "../components/employee-edit";
-import Home from "../Components/home";
-import Employee from "../Components/employee";
-import PrivateRoute from "../Components/private-route";
-import Category from "../Components/category";
-import Profile from "../Components/profile";
-import AddCategory from "../Components/add-category";
-import AddEmployee from "../Components/add-employee";
+import Home from "../components/home";
+import Employee from "../components/employee";
+import PrivateRoute from "../components/private-route";
+import Category from "../components/category";
+import Profile from "../components/profile";
+import AddCategory from "../components/add-category";
+import AddEmployee from "../components/add-employee";
 
 // import "./global.css";
 
